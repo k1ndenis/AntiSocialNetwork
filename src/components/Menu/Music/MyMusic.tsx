@@ -3,13 +3,27 @@ import { CurrentTrack } from "./CurrentTrack";
 import dataTracks from "./../../../data/tracks.json";
 import { SearchingInput } from "./SearchingInput";
 import { SortingButtons } from "./SortingButtons";
+import { AudioUploader } from "./AudioUploader";
 
 export const MyMusic = () => {
   const [tracks, setTracks] = useState(dataTracks);
   const [currentTrackId, setCurrentTrackId] = useState(null);
   const [currentSearchingValue, setCurrentSearchingValue] = useState("");
-  const [isSortingByAuthor, setIsSortingByAuthor] = useState(false);
-  const [isSortingByTitle, setIsSortingByTitle] = useState(false);
+
+  const onAddTrack = (newTrack) => {
+    const updatedTracks = [...tracks];
+    updatedTracks.push(newTrack);
+    setTracks(updatedTracks);
+  }
+
+  const SORT_MODES = {
+    AUTHOR_ASC: 1,
+    AUTHOR_DESC: 2,
+    TITLE_ASC: 3,
+    TITLE_DESC: 4
+  };
+
+  const [sorting, setSorting] = useState(1);
 
   let processedTracks = [...tracks].filter((track) => {
     const composition = `${track.author} ${track.title}`.toLowerCase();
@@ -17,10 +31,14 @@ export const MyMusic = () => {
     return composition.includes(search);
   })
 
-  if (isSortingByAuthor) {
-    processedTracks = [...processedTracks].sort((a, b) => a.author.localeCompare(b.author))
-  } else if (isSortingByTitle) {
+  if (sorting === SORT_MODES.AUTHOR_ASC) {
+    processedTracks = [...processedTracks].sort((a, b) => a.author.localeCompare(b.author));
+  } else if (sorting === SORT_MODES.AUTHOR_DESC) {
+    processedTracks = [...processedTracks].sort((a, b) => b.author.localeCompare(a.author));
+  } else if (sorting === SORT_MODES.TITLE_ASC) {
     processedTracks = [...processedTracks].sort((a, b) => a.title.localeCompare(b.title))
+  } else if (sorting === SORT_MODES.TITLE_DESC) {
+    processedTracks = [...processedTracks].sort((a, b) => b.title.localeCompare(a.title))
   }
 
   const tracksList = (
@@ -50,11 +68,11 @@ export const MyMusic = () => {
       setCurrentValue={setCurrentSearchingValue}
     />
     <SortingButtons
-      isSortingByTitle={isSortingByTitle}
-      setIsSortingByTitle={setIsSortingByTitle}
-      isSortingByAuthor={isSortingByAuthor}
-      setIsSortingByAuthor={setIsSortingByAuthor}
-
+      sorting={sorting}
+      setSorting={setSorting}
+    />
+    <AudioUploader
+      onAddTrack={onAddTrack}
     />
     {tracksList}
    </>

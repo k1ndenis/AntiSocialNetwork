@@ -1,25 +1,29 @@
 export const SortingButtons = (props) => {
-  const { isSortingByTitle, setIsSortingByTitle, isSortingByAuthor, setIsSortingByAuthor } = props
-
-
+  const { sorting, setSorting } = props
 
   return (
     <>
       <button
         onClick={() => {
-          setIsSortingByAuthor(!isSortingByAuthor);
-          setIsSortingByTitle(false);
+          if (sorting === 1) {
+            setSorting(2);
+          } else {
+            setSorting(1);
+          }
         }}
       >
-        Сортировать по автору
+        Автор {sorting === 1 ? "↑" : "↓"}
       </button>
       <button
         onClick={() => {
-          setIsSortingByTitle(!isSortingByTitle);
-          setIsSortingByAuthor(false);
+          if (sorting === 3) {
+            setSorting(4);
+          } else {
+            setSorting(3);
+          }
         }}
       >
-        Сортировать по названию
+        Название {sorting === 3 ? "↑" : "↓"}
       </button>
     </>
   )

@@ -1,11 +1,19 @@
 import { useState } from "react"
 import { MyMusic } from "./Music/MyMusic";
+import { MyVideos } from "./Videos/MyVideos";
+import { CurrentTrack } from "./Music/CurrentTrack";
+import "./Menu.css"
 
 const MENU_DATA = [
   {
     id: 1,
     title: "Music",
     item: <MyMusic />
+  },
+  {
+    id: 2,
+    title: "Videos",
+    item: <MyVideos />
   }
 ]
 
@@ -27,7 +35,7 @@ export const Menu = () => {
   const currentMenuItem = MENU_DATA.find(item => item.id === menuItem);
 
   return ( 
-    <>
+    <div className="menu">
       {menuItem ? (
         <>
           {currentMenuItem.item}
@@ -38,6 +46,6 @@ export const Menu = () => {
           </button>
         </>
       ) : menuList}
-    </>
+    </div>
   )
 }  
