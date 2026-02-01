@@ -1,17 +1,11 @@
 
-import { useState } from "react";
-import "./CurrentTrack.css"
-
 export const CurrentTrack = (props) => {
-  const { currentTrackId, tracks } = props;
-
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { currentTrackId, tracks, setIsPlaying } = props;
 
   const currentTrack = tracks.find(track => track.id === currentTrackId);
 
   return (
-    <div className="current-track-container">
-      {isPlaying ? <img src="/images/audio-animation.gif" /> : <img src="/images/audio.png" />}
+    <div>
       <div className="current-track">
         {currentTrack.author} - {currentTrack.title}<br></br>
         <audio src={currentTrack.url} 

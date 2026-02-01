@@ -4,9 +4,11 @@ import dataTracks from "./../../../data/tracks.json";
 import { SearchingInput } from "./SearchingInput";
 import { SortingButtons } from "./SortingButtons";
 import { AudioUploader } from "./AudioUploader";
+import "./MyMusic.css"
 
 export const MyMusic = () => {
   const [tracks, setTracks] = useState(dataTracks);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState(null);
   const [currentSearchingValue, setCurrentSearchingValue] = useState("");
 
@@ -42,27 +44,44 @@ export const MyMusic = () => {
   }
 
   const tracksList = (
-    <ul>
-      {processedTracks.map((track) => 
-        <li
-          key={track.id}
-          onClick={() => setCurrentTrackId(track.id)}
+    <ul className="tracklist">
+      {processedTracks.map((track) => (
+        <div 
+          className="track-container"
+          onClick={currentTrackId === track.id
+              ? () => {
+                setCurrentTrackId(null);
+                setIsPlaying(false);
+              } 
+              : () => setCurrentTrackId(track.id)}
         >
-          {track.author} - {track.title}
-        </li>
+          <span className="play-button">
+            {isPlaying && currentTrackId === track.id ? "⏸" : "▶"}
+          </span>
+          <li
+            key={track.id}
+          >
+            {track.author} - {track.title}
+          </li>
+        </div>
+      )
       )}
     </ul>
   )
 
   return (
-   <>
-    {currentTrackId
-      ? <CurrentTrack 
-      currentTrackId={currentTrackId}
-      tracks={tracks}
-    />
-      : null
-    }
+  <>
+    <div className="current-track-container">
+      {isPlaying ? <img src="/images/audio-animation.gif" /> : <img src="/images/audio.png" />}
+      {currentTrackId
+        ? <CurrentTrack 
+        currentTrackId={currentTrackId}
+        tracks={tracks}
+        setIsPlaying={setIsPlaying}
+      />
+        : null
+      }
+    </div>
     <SearchingInput
       currentValue={currentSearchingValue}
       setCurrentValue={setCurrentSearchingValue}
@@ -71,10 +90,10 @@ export const MyMusic = () => {
       sorting={sorting}
       setSorting={setSorting}
     />
+    {tracksList}
     <AudioUploader
       onAddTrack={onAddTrack}
     />
-    {tracksList}
-   </>
+  </>
   );
 };

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./AudioUploader.css"
 
 export const AudioUploader = (props) => {
   const { onAddTrack } = props;
@@ -36,7 +37,10 @@ export const AudioUploader = (props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form 
+        className="track-upload-form"
+        onSubmit={handleSubmit}
+      >
         Загрузить трек
         <input
           type="text"
