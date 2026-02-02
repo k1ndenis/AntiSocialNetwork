@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./AudioUploader.css"
 
 export const AudioUploader = (props) => {
-  const { onAddTrack } = props;
 
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
@@ -27,7 +26,7 @@ export const AudioUploader = (props) => {
       url: URL.createObjectURL(file)
     }
 
-    onAddTrack(newTrack)
+    props.onAddTrack(newTrack)
 
     setAuthor("");
     setTitle("")

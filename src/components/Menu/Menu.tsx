@@ -1,19 +1,24 @@
 import { useState } from "react"
+import "./Menu.css"
 import { MyMusic } from "./Music/MyMusic";
 import { MyVideos } from "./Videos/MyVideos";
-import { CurrentTrack } from "./Music/CurrentTrack";
-import "./Menu.css"
+import { MyWeather } from "./Weather/MyWeather";
 
 const MENU_DATA = [
   {
     id: 1,
-    title: "Music",
+    title: "Музыка",
     item: <MyMusic />
   },
   {
     id: 2,
-    title: "Videos",
+    title: "Видео",
     item: <MyVideos />
+  },
+  {
+    id: 3,
+    title: "Погода",
+    item: <MyWeather />
   }
 ]
 

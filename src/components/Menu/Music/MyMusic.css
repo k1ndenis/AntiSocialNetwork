@@ -38,10 +38,15 @@
 .current-track-container {
   display: flex;
   flex-direction: row;
+  gap: 40px;
   padding: 50px;
   background: #3b3b3b;
   border-radius: 12px;
   align-items: end;
+}
+
+.current-track-container img {
+  margin-left: -40px;
 }
 
 .current-track {

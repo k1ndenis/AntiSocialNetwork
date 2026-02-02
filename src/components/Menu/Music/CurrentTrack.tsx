@@ -1,8 +1,7 @@
 
 export const CurrentTrack = (props) => {
-  const { currentTrackId, tracks, setIsPlaying } = props;
 
-  const currentTrack = tracks.find(track => track.id === currentTrackId);
+  const currentTrack = props.tracks.find(track => track.id === props.currentTrackId);
 
   return (
     <div>
@@ -11,8 +10,8 @@ export const CurrentTrack = (props) => {
         <audio src={currentTrack.url} 
           controls 
           autoPlay 
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
+          onPlay={() => props.setIsPlaying(true)}
+          onPause={() => props.setIsPlaying(false)}
         />
       </div>
     </div>
