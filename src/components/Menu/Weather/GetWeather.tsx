@@ -14,6 +14,8 @@ export const GetWeather = (props) => {
 
     props.setLoading(true);
     props.setError(null);
+    localStorage.setItem("weatherCity", props.city);
+    props.setCity("");
 
     const url = `${API_URL}&q=${props.city}`;
     

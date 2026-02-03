@@ -4,7 +4,9 @@ import { WeatherDisplay } from "./WeatherDisplay";
 
 export const MyWeather = () => {
   const [data, setData] = useState(null);
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(() => {
+    return localStorage.getItem("weatherCity" || "")
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

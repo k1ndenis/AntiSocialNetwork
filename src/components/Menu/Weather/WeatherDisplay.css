@@ -1,0 +1,17 @@
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background: #979696;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  font-family: sans-serif;
+}
+
+.weather-info img {
+  width: 10%
+}

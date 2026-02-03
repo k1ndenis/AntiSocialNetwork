@@ -7,7 +7,10 @@ import { TracksList } from "./TracksList";
 import "./MyMusic.css"
 
 export const MyMusic = () => {
-  const [tracks, setTracks] = useState(dataTracks);
+  const [tracks, setTracks] = useState(() => {
+    const saved = localStorage.getItem("tracks");
+    return saved ? JSON.parse(saved) : dataTracks;
+  });
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState(null);
   const [currentSearchingValue, setCurrentSearchingValue] = useState("");
@@ -16,6 +19,7 @@ export const MyMusic = () => {
     const updatedTracks = [...tracks];
     updatedTracks.push(newTrack);
     setTracks(updatedTracks);
+    localStorage.setItem("tracks", JSON.stringify(updatedTracks));
   }
 
   return (

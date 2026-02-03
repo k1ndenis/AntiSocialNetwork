@@ -1,3 +1,5 @@
+import "./WeatherDisplay.css"
+
 export const WeatherDisplay = (props) => {
 
   if (props.error) {
@@ -23,7 +25,7 @@ export const WeatherDisplay = (props) => {
 
   const weatherInfo = (
     <div className="weather-info">
-      <h2>{name}</h2>
+      <h1>{name}</h1>
       <img
         src={`http://openweathermap.org/img/wn/${icon}.png`}
         alt={description}

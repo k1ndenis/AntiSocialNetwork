@@ -1,5 +1,6 @@
+import "./CityInpit.css"
+
 export const CityInput = (props) => {
-  
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") props.fetchData();
@@ -8,6 +9,7 @@ export const CityInput = (props) => {
   return (
     <>
       <input
+        className="city-input"
         type="text"
         placeholder="Введите название города..."
         value={props.city}
