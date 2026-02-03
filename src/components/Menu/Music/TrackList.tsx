@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { SortingButtons } from "./SortingButtons";
 
-export const TracksList = (props) => {
+export const TrackList = (props) => {
 
   const [sorting, setSorting] = useState(1);
   const SORT_MODES = {
@@ -49,14 +49,23 @@ export const TracksList = (props) => {
                 } 
                 : () => props.setCurrentTrackId(track.id)}
           >
-            <span className="play-button">
+            <button className="tracklist-buttons">
               {props.isPlaying && props.currentTrackId === track.id ? "⏸" : "▶"}
-            </span>
+            </button>
             <li
               key={track.id}
             >
               {track.author} - {track.title}
             </li>
+            <button 
+              className="tracklist-buttons"
+              onClick={(e) => {
+                e.stopPropagation();
+                props.onDeleteTrack(track.id);
+              }}
+            >
+              x
+            </button>
           </div>
         )
         )}

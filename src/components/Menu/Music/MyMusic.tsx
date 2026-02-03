@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { CurrentTrack } from "./CurrentTrack";
 import dataTracks from "./../../../data/tracks.json";
 import { SearchingInput } from "./SearchingInput";
 import { AudioUploader } from "./AudioUploader";
-import { TracksList } from "./TracksList";
+import { TrackList } from "./TrackList";
 import "./MyMusic.css"
 
 export const MyMusic = () => {
@@ -18,6 +18,12 @@ export const MyMusic = () => {
   const onAddTrack = (newTrack) => {
     const updatedTracks = [...tracks];
     updatedTracks.push(newTrack);
+    setTracks(updatedTracks);
+    localStorage.setItem("tracks", JSON.stringify(updatedTracks));
+  }
+
+  const onDeleteTrack = (id) => {
+    const updatedTracks = tracks.filter(track => track.id !== id);
     setTracks(updatedTracks);
     localStorage.setItem("tracks", JSON.stringify(updatedTracks));
   }
@@ -39,13 +45,14 @@ export const MyMusic = () => {
       currentValue={currentSearchingValue}
       setCurrentValue={setCurrentSearchingValue}
     />
-    <TracksList
+    <TrackList
       tracks={tracks}
       currentSearchingValue={currentSearchingValue}
       currentTrackId={currentTrackId}
       setCurrentTrackId={setCurrentTrackId}
       isPlaying={isPlaying}
       setIsPlaying={setIsPlaying}
+      onDeleteTrack={onDeleteTrack}
     />
     <AudioUploader
       onAddTrack={onAddTrack}

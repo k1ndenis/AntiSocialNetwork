@@ -31,8 +31,8 @@
   gap: 15px;
 }
 
-.play-button {
-  font-size: 1.5rem;
+.tracklist-buttons:hover {
+  transform: scale(0.98);
 }
 
 .current-track-container {
