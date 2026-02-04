@@ -18,16 +18,21 @@ export const AudioUploader = (props) => {
     e.preventDefault();
 
     if (!file) return alert("Выберите файл");
+    
+    if (file) {
+      const reader = new FileReader();
 
-    const newTrack = {
-      id: Date.now(),
-      author: author,
-      title: title,
-      url: URL.createObjectURL(file)
+      reader.onloadend = () => {
+        const newTrack = {
+          id: Date.now(),
+          author: author,
+          title: title,
+          url: reader.result
+        }
+        props.onAddTrack(newTrack);
+      }
+      reader.readAsDataURL(file)
     }
-
-    props.onAddTrack(newTrack)
-
     setAuthor("");
     setTitle("")
     setFile(null);

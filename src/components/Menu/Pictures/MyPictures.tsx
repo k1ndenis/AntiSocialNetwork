@@ -10,7 +10,7 @@ export const MyPictures = () => {
 
   const onAddPicture = (newPicture) => {
     const updatedPictures = [...pictures];
-    updatedPictures.push(newPicture);
+    updatedPictures.unshift(newPicture);
     setPictures(updatedPictures);
     localStorage.setItem("pictures", JSON.stringify(updatedPictures));
   }

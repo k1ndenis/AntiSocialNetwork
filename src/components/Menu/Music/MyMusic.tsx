@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { get, set } from "idb-keyval"
 import { CurrentTrack } from "./CurrentTrack";
 import dataTracks from "./../../../data/tracks.json";
 import { SearchingInput } from "./SearchingInput";
@@ -7,25 +8,32 @@ import { TrackList } from "./TrackList";
 import "./MyMusic.css"
 
 export const MyMusic = () => {
-  const [tracks, setTracks] = useState(() => {
-    const saved = localStorage.getItem("tracks");
-    return saved ? JSON.parse(saved) : dataTracks;
-  });
+  const [tracks, setTracks] = useState(dataTracks);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState(null);
   const [currentSearchingValue, setCurrentSearchingValue] = useState("");
 
-  const onAddTrack = (newTrack) => {
+  useEffect(() => {
+    const loadTracks = async () => {
+      const savedTracks = await get("tracks");
+      if (savedTracks) {
+        setTracks(savedTracks);
+      }
+    };
+    loadTracks();
+  }, []);
+
+  const onAddTrack = async (newTrack) => {
     const updatedTracks = [...tracks];
-    updatedTracks.push(newTrack);
+    updatedTracks.unshift(newTrack);
     setTracks(updatedTracks);
-    localStorage.setItem("tracks", JSON.stringify(updatedTracks));
+    await set("tracks", updatedTracks);
   }
 
-  const onDeleteTrack = (id) => {
+  const onDeleteTrack = async (id) => {
     const updatedTracks = tracks.filter(track => track.id !== id);
     setTracks(updatedTracks);
-    localStorage.setItem("tracks", JSON.stringify(updatedTracks));
+    await set("tracks", updatedTracks);
   }
 
   return (
