@@ -3,6 +3,7 @@ import "./Menu.css"
 import { MyMusic } from "./Music/MyMusic";
 import { MyVideos } from "./Videos/MyVideos";
 import { MyWeather } from "./Weather/MyWeather";
+import { MyPictures } from "./Pictures/MyPictures";
 
 const MENU_DATA = [
   {
@@ -12,11 +13,16 @@ const MENU_DATA = [
   },
   {
     id: 2,
+    title: "Картинки",
+    item: <MyPictures />
+  },
+  {
+    id: 3,
     title: "Видео",
     item: <MyVideos />
   },
   {
-    id: 3,
+    id: 4,
     title: "Погода",
     item: <MyWeather />
   }
