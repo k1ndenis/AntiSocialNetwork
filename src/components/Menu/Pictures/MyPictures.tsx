@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { get, set } from "idb-keyval"
 import dataPictures from "./../../../data/pictures.json";
 import { PictureList } from "./PictureList";
 
 export const MyPictures = () => {
-  const [pictures, setPictures] = useState(() => {
-    const saved = localStorage.getItem("pictures");
-    return saved ? JSON.parse(saved) : dataPictures;
-  });
+  const [pictures, setPictures] = useState(dataPictures);
 
-  const onAddPicture = (newPicture) => {
+  useEffect(() => {
+    const loadPictures = async () => {
+      const savedPictures = await get("pictures");
+      if (savedPictures) {
+        setPictures(savedPictures);
+      }
+    };
+    loadPictures()
+  }, []);
+
+  const onAddPicture = async (newPicture) => {
     const updatedPictures = [...pictures];
     updatedPictures.unshift(newPicture);
     setPictures(updatedPictures);
-    localStorage.setItem("pictures", JSON.stringify(updatedPictures));
+    await set("pictures", updatedPictures);
   }
 
   return (
