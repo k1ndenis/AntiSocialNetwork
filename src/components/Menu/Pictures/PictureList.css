@@ -8,15 +8,26 @@
 ul {
   display: grid;
   justify-content: center;
+  align-items: center;
+  justify-items: center;
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
-  list-style: none;
   padding: 0;
+  list-style: none;
+  max-width: 800px;
 }
 
-img {
+ul img {
   border-radius: 12px;
   width: 100%;
   height: auto;
   display: block;
+}
+
+.add-button {
+  width: 10rem;
+}
+
+.add-picture-input {
+  display: none;
 }

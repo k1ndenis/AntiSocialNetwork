@@ -49,6 +49,11 @@ export const Menu = () => {
     <div className="menu">
       {menuItem ? (
         <>
+          <button
+            onClick={() => setMenuItem(null)}
+          >
+            В меню
+          </button>
           {currentMenuItem.item}
           <button
             onClick={() => setMenuItem(null)}
