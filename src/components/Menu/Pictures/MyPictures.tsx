@@ -23,11 +23,18 @@ export const MyPictures = () => {
     await set("pictures", updatedPictures);
   }
 
+  const onDeletePicture = async (id) => {
+    const updatedPictures = pictures.filter(picture => picture.id !== id);
+    setPictures(updatedPictures);
+    await set("pictures", updatedPictures);
+  }
+
   return (
     <>
       <PictureList
         pictures={pictures}
         onAddPicture={onAddPicture}
+        onDeletePicture={onDeletePicture}
       />
     </>
   )

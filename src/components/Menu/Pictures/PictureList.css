@@ -1,4 +1,15 @@
 .card {
+  position: relative;
+  border-radius: 12px; /* Скругляем саму карточку */
+  overflow: hidden; 
+}
+
+.card button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  opacity: 0.75;
 }
 
 .card:hover {
@@ -18,7 +29,6 @@ ul {
 }
 
 ul img {
-  border-radius: 12px;
   width: 100%;
   height: auto;
   display: block;

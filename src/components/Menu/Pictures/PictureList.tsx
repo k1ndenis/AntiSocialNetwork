@@ -43,6 +43,11 @@ export const PictureList = (props) => {
         <li key={picture.id}>
           <div className="card">
             <img src={picture.url} />
+            <button
+              onClick={() => props.onDeletePicture(picture.id)}
+            >
+              x
+            </button>
           </div>
         </li>
       ))}
