@@ -15,18 +15,27 @@ export const CurrentTrack = (props) => {
 
   const currentTrackDisplay = (
     <div className="current-track">
+      <div></div>
       {props.isPlaying
         ? (
-          <>
+          <div className="scroll-wrapper-container">
             <div className="scroll-wrapper">
               <span>{currentTrack.author} - {currentTrack.title}</span>
               <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
+              <span>{currentTrack.author} - {currentTrack.title}</span>
             </div>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="scroll-wrapper-container">
             <span>{currentTrack.author} - {currentTrack.title}</span>
-          </>
+          </div>
         )}
         <audio src={currentTrack.url} 
           controls 
