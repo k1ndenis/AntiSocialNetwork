@@ -1,3 +1,20 @@
+
+.scroll-wrapper {
+  display: flex;
+  width: max-content;
+  animation: scrolling 8s linear infinite;
+}
+
+.scroll-wrapper span {
+  color: #fff;
+  padding: 0 30px;
+}
+
+@keyframes scrolling {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 .tracklist {
   display: flex;
   flex-direction: column;
@@ -38,22 +55,25 @@
 .current-track-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   gap: 40px;
   padding: 50px;
   background: #3b3b3b;
   border-radius: 12px;
-  align-items: end;
-}
-
-.current-track-container img {
-  margin-left: -40px;
 }
 
 .current-track {
   display: flex;
   flex-direction: column;
+  background: #979696;
+  border-radius: 12px;
+  width: 700px;
+  padding: 10px;
+  overflow: hidden;
   font-size: 2rem;
   gap:20px;
+  margin: 20px;
+  margin: 0 auto;
 }
 
 .current-track audio {

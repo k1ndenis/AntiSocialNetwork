@@ -39,15 +39,12 @@ export const MyMusic = () => {
   return (
   <>
     <div className="current-track-container">
-      {isPlaying ? <img src="/images/audio-animation.gif" /> : <img src="/images/audio.png" />}
-      {currentTrackId
-        ? <CurrentTrack 
+      <CurrentTrack 
         currentTrackId={currentTrackId}
         tracks={tracks}
+        isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
       />
-        : null
-      }
     </div>
     <SearchingInput
       currentValue={currentSearchingValue}
