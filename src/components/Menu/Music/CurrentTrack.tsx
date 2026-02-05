@@ -1,3 +1,4 @@
+import "./CurrentTrack.css"
 
 export const CurrentTrack = (props) => {
 

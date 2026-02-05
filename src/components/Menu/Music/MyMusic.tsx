@@ -37,7 +37,7 @@ export const MyMusic = () => {
   }
 
   return (
-  <>
+  <div className="music-container">
     <div className="current-track-container">
       <CurrentTrack 
         currentTrackId={currentTrackId}
@@ -62,6 +62,6 @@ export const MyMusic = () => {
     <AudioUploader
       onAddTrack={onAddTrack}
     />
-  </>
+  </div>
   );
 };

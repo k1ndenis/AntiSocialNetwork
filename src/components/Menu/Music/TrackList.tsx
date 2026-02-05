@@ -1,5 +1,6 @@
 import { SortingButtons } from "./SortingButtons";
 import { useTrackProcessor } from "../../../hooks/useTrackProcessor";
+import "./TrackList.css"
 
 export const TrackList = (props) => {
   const { processedTracks, sorting, setSorting } = useTrackProcessor(
@@ -31,21 +32,23 @@ export const TrackList = (props) => {
                 } 
                 : () => props.setCurrentTrackId(track.id)}
           >
-            <button className="tracklist-buttons">
-              {props.isPlaying && props.currentTrackId === track.id ? "⏸" : "▶"}
-            </button>
-            <li>
-              {track.author} - {track.title}
-            </li>
-            <button 
-              className="tracklist-buttons"
-              onClick={(e) => {
-                e.stopPropagation();
-                props.onDeleteTrack(track.id);
-              }}
-            >
-              x
-            </button>
+            <div className="track-row">
+              <button className="tracklist-buttons">
+                {props.isPlaying && props.currentTrackId === track.id ? "⏸" : "▶"}
+              </button>
+              <li>
+                {track.author} - {track.title}
+              </li>
+              <button 
+                className="tracklist-buttons"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.onDeleteTrack(track.id);
+                }}
+              >
+                x
+              </button>
+            </div>
           </div>
         )
         )}
