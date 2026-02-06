@@ -7,7 +7,7 @@ export const CityInput = (props) => {
   }
 
   return (
-    <>
+    <div className="city-input-container">
       <input
         className="city-input"
         type="text"
@@ -21,6 +21,6 @@ export const CityInput = (props) => {
       >
         Узнать погоду
       </button>
-    </>
+    </div>
   )
 }

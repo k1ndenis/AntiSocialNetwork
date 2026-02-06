@@ -37,6 +37,7 @@ export const AudioUploader = (props) => {
     setTitle("")
     setFile(null);
     e.target.reset();
+    props.setUploader(false);
   }
 
   return (
@@ -45,6 +46,12 @@ export const AudioUploader = (props) => {
         className="track-upload-form"
         onSubmit={handleSubmit}
       >
+        <button 
+          className="hide-upload-form-button"
+          onClick={() => props.setUploader(false)}
+        >
+          x
+        </button>
         Загрузить трек
         <input
           type="text"
@@ -68,7 +75,9 @@ export const AudioUploader = (props) => {
         />
         <button
           type="submit"
-        >Добавить трек</button>
+        >
+          Добавить трек
+        </button>
       </form>
     </>
   )

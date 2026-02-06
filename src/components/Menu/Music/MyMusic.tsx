@@ -12,6 +12,7 @@ export const MyMusic = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState(null);
   const [currentSearchingValue, setCurrentSearchingValue] = useState("");
+  const [uploader, setUploader] = useState(false);
 
   useEffect(() => {
     const loadTracks = async () => {
@@ -36,6 +37,22 @@ export const MyMusic = () => {
     await set("tracks", updatedTracks);
   }
 
+  const getAudioUploader = (
+    uploader
+      ? (
+        <AudioUploader
+          onAddTrack={onAddTrack}
+          setUploader={setUploader}
+        />
+      ) : (
+        <button
+          onClick={() => setUploader(true)}
+        >
+          Загрузить свой трек
+        </button>
+      )
+    )
+
   return (
   <div className="music-container">
     <div className="current-track-container">
@@ -59,9 +76,7 @@ export const MyMusic = () => {
       setIsPlaying={setIsPlaying}
       onDeleteTrack={onDeleteTrack}
     />
-    <AudioUploader
-      onAddTrack={onAddTrack}
-    />
+    {getAudioUploader}
   </div>
   );
 };

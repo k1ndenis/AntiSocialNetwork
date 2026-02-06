@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 60vw !important;
-  background-color: #979696;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #333333;
   list-style-type: none;
   gap: 8px;
   border-radius: 12px;
@@ -11,6 +12,7 @@
   margin: 0 auto;
   padding: 20px; 
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
 .tracklist li {

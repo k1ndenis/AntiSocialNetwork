@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background: #979696;
+  background: #333333;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
+  position: relative;
 }
 
 .track-upload-form {
@@ -57,4 +57,16 @@
 
 .track-upload-form button:active {
   transform: scale(0.98);
+}
+
+.hide-upload-form-button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 10;
+  opacity: 0.75;
+}
+
+.hide-upload-form-button:hover {
+  transform: scale(0.9);
 }
