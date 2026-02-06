@@ -6,7 +6,9 @@ export const CurrentTrack = (props) => {
     return (
       <>
         <div className="current-track">
-          <span>Выберите трек</span>
+          <div className="scroll-wrapper-container">
+            <span>Выберите трек</span>
+          </div>
         </div>
       </>
     )
@@ -16,7 +18,6 @@ export const CurrentTrack = (props) => {
 
   const currentTrackDisplay = (
     <div className="current-track">
-      <div></div>
       {props.isPlaying
         ? (
           <div className="scroll-wrapper-container">

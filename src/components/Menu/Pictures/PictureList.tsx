@@ -17,7 +17,11 @@ export const PictureList = (props) => {
           <div className="card">
             <img src={picture.url} />
             <button
-              onClick={() => props.onDeletePicture(picture.id)}
+              onClick={() => {
+                if (confirm("Подтвердите действие")) {
+                  props.onDeletePicture(picture.id)}
+                }
+              }
             >
               x
             </button>

@@ -43,7 +43,9 @@ export const TrackList = (props) => {
                 className="tracklist-buttons"
                 onClick={(e) => {
                   e.stopPropagation();
-                  props.onDeleteTrack(track.id);
+                  if (confirm("Подтвердите действие")) {
+                    props.onDeleteTrack(track.id);
+                  }
                 }}
               >
                 x
