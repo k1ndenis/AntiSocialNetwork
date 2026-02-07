@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { get, set } from "idb-keyval"
-import dataPictures from "./../../../data/pictures.json";
+import dataPictures from "../../../data/pictures.json";
 import { PictureList } from "./PictureList";
 
 export const MyPictures = () => {

@@ -1,9 +1,9 @@
 import { useState } from "react"
 import "./Menu.css"
-import { MyMusic } from "./Music/MyMusic";
-import { MyVideos } from "./Videos/MyVideos";
-import { MyWeather } from "./Weather/MyWeather";
-import { MyPictures } from "./Pictures/MyPictures";
+import { MyMusic } from "./music/MyMusic";
+import { MyVideos } from "./videos/MyVideos";
+import { MyWeather } from "./weather/MyWeather";
+import { MyPictures } from "./pictures/MyPictures";
 
 const MENU_DATA = [
   {

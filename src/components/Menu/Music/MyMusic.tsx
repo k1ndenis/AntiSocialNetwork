@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { get, set } from "idb-keyval"
 import { CurrentTrack } from "./CurrentTrack";
-import dataTracks from "./../../../data/tracks.json";
+import dataTracks from "../../../data/tracks.json";
 import { SearchingInput } from "./SearchingInput";
 import { AudioUploader } from "./AudioUploader";
 import { TrackList } from "./TrackList";

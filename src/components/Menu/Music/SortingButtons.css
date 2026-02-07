@@ -1,0 +1,10 @@
+.music-sorting-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 25px;
+}
+
+.music-sorting-buttons button {
+  width: 40%;
+}

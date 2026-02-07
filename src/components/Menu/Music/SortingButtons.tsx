@@ -1,4 +1,5 @@
 import { SORT_MODES } from "../../../hooks/useTrackProcessor";
+import "./SortingButtons.css"
 
 const { 
   AUTHOR_ASC,
@@ -11,7 +12,7 @@ export const SortingButtons = (props) => {
   const { sorting, setSorting } = props
 
   return (
-    <>
+    <div className="music-sorting-buttons">
       <button
         onClick={() => sorting === AUTHOR_ASC ? setSorting(AUTHOR_DESC) : setSorting(AUTHOR_ASC)}
       >
@@ -22,6 +23,6 @@ export const SortingButtons = (props) => {
       >
         Название {sorting === TITLE_ASC ? "↑" : "↓"}
       </button>
-    </>
+    </div>
   )
 }

@@ -23,7 +23,10 @@ ul {
   justify-items: center;
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
-  padding: 0;
+  box-sizing: border-box;
+  background: #333333;
+  border-radius: 12px;
+  padding: 25px;
   list-style: none;
   max-width: 800px;
 }
