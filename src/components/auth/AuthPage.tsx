@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { get, set } from "idb-keyval"
 import { SignUpForm } from "./SignUpForm";
 import { LoginForm } from "./LoginForm";
-import { Menu } from "../Menu/Menu";
+import { Menu } from "../menu/Menu";
 
 export const AuthPage = () => {
   const [users, setUsers] = useState([]);
