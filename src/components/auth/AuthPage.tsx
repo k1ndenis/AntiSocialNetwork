@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { get } from "idb-keyval"
+import { get, set } from "idb-keyval"
 import { SignUpForm } from "./SignUpForm";
 import { LoginForm } from "./LoginForm";
 import { Menu } from "../Menu/Menu";
@@ -30,8 +30,15 @@ export const AuthPage = () => {
     loadUsers();
   }, []);
 
+  const handleLogout = async () => {
+    await set("loggedUser", null);
+    setIsAuthenticated(false);
+  }
+
   if (isAuthenticated) return (
-    <Menu />
+    <Menu
+      handleLogout={handleLogout}
+    />
   )
 
   if (!isLogining && !isReg) return (

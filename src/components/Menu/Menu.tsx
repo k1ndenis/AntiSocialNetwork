@@ -28,7 +28,7 @@ const MENU_DATA = [
   }
 ]
 
-export const Menu = () => {
+export const Menu = (props) => {
 
   const [menuItem, setMenuItem] = useState(null);
 
@@ -46,6 +46,7 @@ export const Menu = () => {
   const currentMenuItem = MENU_DATA.find(item => item.id === menuItem);
 
   return ( 
+    <>
     <div className="menu">
       {menuItem ? (
         <>
@@ -63,5 +64,11 @@ export const Menu = () => {
         </>
       ) : menuList}
     </div>
+    <button
+      onClick={props.handleLogout}
+    >
+      Выйти
+    </button>
+    </>
   )
 }  
