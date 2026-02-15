@@ -4,6 +4,7 @@ import { MyMusic } from "./music/MyMusic";
 import { MyVideos } from "./videos/MyVideos";
 import { MyWeather } from "./weather/MyWeather";
 import { MyPictures } from "./pictures/MyPictures";
+import { MyGames } from "./games/MyGames";
 
 const MENU_DATA = [
   {
@@ -25,12 +26,17 @@ const MENU_DATA = [
     id: 4,
     title: "Погода",
     item: <MyWeather />
+  },
+  {
+    id: 5,
+    title: "Игры",
+    item: <MyGames />
   }
 ]
 
 export const Menu = (props) => {
 
-  const [menuItem, setMenuItem] = useState(null);
+  const [menuItem, setMenuItem] = useState<number | null>(null);
 
   const menuList = (
     MENU_DATA.map((item) => 
@@ -55,7 +61,7 @@ export const Menu = (props) => {
           >
             В меню
           </button>
-          {currentMenuItem.item}
+          {currentMenuItem?.item}
           <button
             onClick={() => setMenuItem(null)}
           >
