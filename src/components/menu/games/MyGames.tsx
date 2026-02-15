@@ -6,7 +6,6 @@ export const MyGames = () => {
   return (
     <>
       <Scanword />
-      <GridInputs />
     </>
   )
 }
