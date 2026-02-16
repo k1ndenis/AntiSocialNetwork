@@ -8,6 +8,7 @@ export const GridInputs = (props) => {
   const [activedCell, setActivedCell] = useState(0);
   const [direction, setDirection] = useState("horizontal");
   const [solvedCells, setSolvedCells] = useState([]);
+  const [currentCells, setCurrentCells] = useState(props.questions[0].coordinates);
   const inputRefs = useRef([]);
 
   useEffect(() => {
@@ -24,7 +25,6 @@ export const GridInputs = (props) => {
     })
 
     if (isCorrect) {
-      console.log("!");
       const newSolvedCoords = Object.keys(targetWord);
       setSolvedCells(prev => [...prev, ...newSolvedCoords]);
 
@@ -32,7 +32,8 @@ export const GridInputs = (props) => {
       console.log(solvedCells)
       if (nextIndex < props.questions.length) {
         const nextQuestion = props.questions[nextIndex];
-        setCurrentQuestion(prev => prev + 1);
+        setCurrentQuestion(nextIndex);
+        setCurrentCells(nextQuestion.coordinates);
         setDirection(nextQuestion.direction)
         setActivedCell(nextQuestion.startPosition);
       } else console.log("end")
@@ -63,16 +64,18 @@ export const GridInputs = (props) => {
 
   const handleKeyDown = (e, i) => {
     if (e.key === 'Backspace') {
-      if (direction === "horizontal") {
+      if (direction === "horizontal" && i % 10 > 0) {
         setActivedCell(i - 1);
-      } else {
+      } else if (direction === "vertical" && i >= 10) {
         setActivedCell(i - 10);
       }
     }
   }
 
   const setCellsDisplay = (id) => {
-    console.log(solvedCells[0])
+    if (currentCells.includes(id) && !solvedCells.includes(id)) {
+      return { background: "grey", color: "white", boxShadow: "0 0 1rem rgba(197, 197, 197, 0.75)" }
+    }
     if (solvedCells.includes(id)) {
       return { background: "green", color: "white" }
     } else {
