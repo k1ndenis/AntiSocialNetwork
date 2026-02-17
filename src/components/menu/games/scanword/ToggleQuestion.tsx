@@ -1,7 +1,7 @@
-export const ToggleQuestion = () => {
+export const ToggleQuestion = (props) => {
 
   return (
-    <button>
+    <button onClick={() => console.log(props.solvedCells.length)}>
       Следующий вопрос
     </button>
   )

@@ -3,6 +3,7 @@ import { ToggleQuestion } from "./ToggleQuestion";
 import { CurrentQuestion } from "./CurrentQuestion";
 
 export const GridInputs = (props) => {
+  const [isSolved, setIsSolved] = useState(false);
   const [cells, setCells] = useState({});
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [activedCell, setActivedCell] = useState(0);
@@ -11,15 +12,13 @@ export const GridInputs = (props) => {
   const [currentCells, setCurrentCells] = useState(props.questions[0].coordinates);
   const inputRefs = useRef([]);
 
-  if (!true) {
-    return <>всё</>
-  }
-
   useEffect(() => {
     if (inputRefs.current[activedCell]) {
       inputRefs.current[activedCell].focus();
     }
   }, [activedCell]);
+
+  if (!props.questions || props.questions.length === 0) return <div>Загрузка...</div>;
 
   const chekWord = (wordIndex, currentCells) => {
     const targetWord = props.questions[wordIndex].position;
@@ -40,7 +39,7 @@ export const GridInputs = (props) => {
         setCurrentCells(nextQuestion.coordinates);
         setDirection(nextQuestion.direction)
         setActivedCell(nextQuestion.startPosition);
-      } else console.log("end")
+      } else setIsSolved(true);
       return true;
     }
     return false;
@@ -128,17 +127,24 @@ export const GridInputs = (props) => {
     }
   }
 
-  useEffect(() => {
-
-  })
-
-  return (
+  return isSolved ? (
+    <>
+      <div>Всё</div>
+      <button
+        onClick={() => {
+          setIsSolved(!isSolved);
+        }}
+      >
+        Начать сначала
+      </button>
+    </>
+  ) : (
     <>
     <CurrentQuestion
       questions={props.questions}
       currentQuestion={currentQuestion}
     />
-    <ToggleQuestion />
+    <ToggleQuestion solvedCells={solvedCells} />
     <div style={{ display: 'grid', gridTemplateColumns: `repeat(${10}, 40px)` }}>
       {Array.from({ length: 100 }).map((_, i) => {
         const row = Math.floor(i / 10);
