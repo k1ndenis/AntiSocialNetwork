@@ -1,11 +1,9 @@
 import {  useEffect, useRef, useState } from "react"
-import { ToggleQuestion } from "./ToggleQuestion";
-import { CurrentQuestion } from "./CurrentQuestion";
+import './GridInputs.css'
 
 export const GridInputs = (props) => {
   const [isSolved, setIsSolved] = useState(false);
   const [cells, setCells] = useState({});
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [activedCell, setActivedCell] = useState(0);
   const [direction, setDirection] = useState("horizontal");
   const [solvedCells, setSolvedCells] = useState([]);
@@ -35,7 +33,7 @@ export const GridInputs = (props) => {
       console.log(solvedCells)
       if (nextIndex < props.questions.length) {
         const nextQuestion = props.questions[nextIndex];
-        setCurrentQuestion(nextIndex);
+        props.setCurrentQuestion(nextIndex);
         setCurrentCells(nextQuestion.coordinates);
         setDirection(nextQuestion.direction)
         setActivedCell(nextQuestion.startPosition);
@@ -47,7 +45,7 @@ export const GridInputs = (props) => {
 
   const handleChange = (e, i) => {
     const { name, value } = e.target;
-    const endPos = props.questions[currentQuestion].endPosition
+    const endPos = props.questions[props.currentQuestion].endPosition
     const step = direction === "horizontal" ? 1 : 10;
 
     if (solvedCells.includes(name)) {
@@ -71,7 +69,7 @@ export const GridInputs = (props) => {
     const updatedCells = { ...cells, [name]: char };
     setCells(updatedCells);
 
-    const isSolved = chekWord(currentQuestion, updatedCells);
+    const isSolved = chekWord(props.currentQuestion, updatedCells);
     if (isSolved) return;
 
     let nextIndex = i;
@@ -89,7 +87,7 @@ export const GridInputs = (props) => {
 
   const handleKeyDown = (e, i) => {
     if (e.key === 'Backspace') {
-      const startPos = props.questions[currentQuestion].startPosition
+      const startPos = props.questions[props.currentQuestion].startPosition
       const name = e.target.name
       if (i > startPos) {
         if (!solvedCells.includes(name)) {
@@ -118,7 +116,7 @@ export const GridInputs = (props) => {
 
   const setCellsDisplay = (id) => {
     if (currentCells.includes(id) && !solvedCells.includes(id)) {
-      return { background: "grey", color: "white", boxShadow: "0 0 1rem rgba(197, 197, 197, 0.75)" }
+      return { background: "grey", color: "white", boxShadow: "0 0 1rem rgba(172, 172, 172, 0.75)" }
     }
     if (solvedCells.includes(id)) {
       return { background: "green", color: "white" }
@@ -140,33 +138,28 @@ export const GridInputs = (props) => {
     </>
   ) : (
     <>
-    <CurrentQuestion
-      questions={props.questions}
-      currentQuestion={currentQuestion}
-    />
-    <ToggleQuestion solvedCells={solvedCells} />
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${10}, 40px)` }}>
-      {Array.from({ length: 100 }).map((_, i) => {
-        const row = Math.floor(i / 10);
-        const col = i % 10;
-        const id = `${row}-${col}`;
-        const isBlocked = i == activedCell ? false : true
+      <div className="grid-inputs-container">
+        {Array.from({ length: 100 }).map((_, i) => {
+          const row = Math.floor(i / 10);
+          const col = i % 10;
+          const id = `${row}-${col}`;
+          const isBlocked = i == activedCell ? false : true
 
-        return (
-          <input
-            key={id}
-            name={id}
-            value={cells[id] || ''}
-            disabled={isBlocked}
-            ref={el => inputRefs.current[i] = el}
-            style={setCellsDisplay(id)}
-            onChange={(e) => handleChange(e, i)}
-            onClick={() => console.log({id})}
-            onKeyDown={(e) => handleKeyDown(e, i)}
-          />
-        )
-      })}
-    </div>
+          return (
+            <input
+              key={id}
+              name={id}
+              value={cells[id] || ''}
+              disabled={isBlocked}
+              ref={el => inputRefs.current[i] = el}
+              className="input-cell"
+              style={setCellsDisplay(id)}
+              onChange={(e) => handleChange(e, i)}
+              onKeyDown={(e) => handleKeyDown(e, i)}
+            />
+          )
+        })}
+      </div>
     </>
   )
 }
