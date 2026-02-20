@@ -9,6 +9,7 @@ export const CurrentQuestion = (props) => {
         questions={props.questions}
         currentQuestion={props.currentQuestion}
         setCurrentQuestion={props.setCurrentQuestion}
+        solvedCells={props.solvedCells}
         val={-1}
         row={"←"}
       />
@@ -19,6 +20,7 @@ export const CurrentQuestion = (props) => {
         questions={props.questions}
         currentQuestion={props.currentQuestion}
         setCurrentQuestion={props.setCurrentQuestion}
+        solvedCells={props.solvedCells}
         val={1}
         row={"→"}
       />

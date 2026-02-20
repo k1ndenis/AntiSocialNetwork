@@ -2,13 +2,30 @@ import {  useEffect, useRef, useState } from "react"
 import './GridInputs.css'
 
 export const GridInputs = (props) => {
+  const {
+    questions,
+    currentQuestion,
+    setCurrentQuestion,
+    activedCell,
+    setActivedCell,
+    currentCells,
+    setCurrentCells,
+    solvedCells,
+    setSolvedCells
+  } = props
   const [isSolved, setIsSolved] = useState(false);
   const [cells, setCells] = useState({});
-  const [activedCell, setActivedCell] = useState(0);
   const [direction, setDirection] = useState("horizontal");
-  const [solvedCells, setSolvedCells] = useState([]);
-  const [currentCells, setCurrentCells] = useState(props.questions[0].coordinates);
   const inputRefs = useRef([]);
+
+  useEffect(() => {
+    const currentQ = questions[currentQuestion];
+    if (currentQ) {
+      setCurrentCells(currentQ.coordinates);
+      setActivedCell(currentQ.startPosition);
+      setDirection(currentQ.direction);
+    }
+  }, [currentQuestion, questions]);
 
   useEffect(() => {
     if (inputRefs.current[activedCell]) {
@@ -16,10 +33,10 @@ export const GridInputs = (props) => {
     }
   }, [activedCell]);
 
-  if (!props.questions || props.questions.length === 0) return <div>Загрузка...</div>;
+  if (!questions || questions.length === 0) return <div>Загрузка...</div>;
 
   const chekWord = (wordIndex, currentCells) => {
-    const targetWord = props.questions[wordIndex].position;
+    const targetWord = questions[wordIndex].position;
 
     const isCorrect = Object.entries(targetWord).every(([coord, letter]) => {
       return currentCells[coord] === letter;
@@ -28,12 +45,10 @@ export const GridInputs = (props) => {
     if (isCorrect) {
       const newSolvedCoords = Object.keys(targetWord);
       setSolvedCells(prev => [...prev, ...newSolvedCoords]);
-
       const nextIndex = wordIndex + 1;
-      console.log(solvedCells)
-      if (nextIndex < props.questions.length) {
-        const nextQuestion = props.questions[nextIndex];
-        props.setCurrentQuestion(nextIndex);
+      if (nextIndex < questions.length) {
+        const nextQuestion = questions[nextIndex];
+        setCurrentQuestion(nextIndex);
         setCurrentCells(nextQuestion.coordinates);
         setDirection(nextQuestion.direction)
         setActivedCell(nextQuestion.startPosition);
@@ -45,7 +60,7 @@ export const GridInputs = (props) => {
 
   const handleChange = (e, i) => {
     const { name, value } = e.target;
-    const endPos = props.questions[props.currentQuestion].endPosition
+    const endPos = questions[currentQuestion].endPosition
     const step = direction === "horizontal" ? 1 : 10;
 
     if (solvedCells.includes(name)) {
@@ -69,7 +84,7 @@ export const GridInputs = (props) => {
     const updatedCells = { ...cells, [name]: char };
     setCells(updatedCells);
 
-    const isSolved = chekWord(props.currentQuestion, updatedCells);
+    const isSolved = chekWord(currentQuestion, updatedCells);
     if (isSolved) return;
 
     let nextIndex = i;
@@ -87,7 +102,7 @@ export const GridInputs = (props) => {
 
   const handleKeyDown = (e, i) => {
     if (e.key === 'Backspace') {
-      const startPos = props.questions[props.currentQuestion].startPosition
+      const startPos = questions[currentQuestion].startPosition
       const name = e.target.name
       if (i > startPos) {
         if (!solvedCells.includes(name)) {
@@ -143,7 +158,7 @@ export const GridInputs = (props) => {
           const row = Math.floor(i / 10);
           const col = i % 10;
           const id = `${row}-${col}`;
-          const isBlocked = i == activedCell ? false : true
+          const isBlocked = !(i === activedCell && currentCells.includes(id))
 
           return (
             <input
