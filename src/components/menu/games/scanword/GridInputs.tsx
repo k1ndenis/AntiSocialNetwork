@@ -166,7 +166,7 @@ export const GridInputs = (props) => {
               name={id}
               value={cells[id] || ''}
               disabled={isBlocked}
-              ref={el => inputRefs.current[i] = el}
+              ref={el => { inputRefs.current[i] = el }}
               className="input-cell"
               style={setCellsDisplay(id)}
               onChange={(e) => handleChange(e, i)}

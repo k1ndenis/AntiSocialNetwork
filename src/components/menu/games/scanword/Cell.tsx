@@ -1,11 +1,11 @@
 export const Cell = (props) => {
-  const { id, question, answer } = props;
+  const { id, answer } = props;
 
   const letters = answer.split("");
 
   return (
     <div style={{ display: 'flex', marginBottom: '10px', gap: '5px' }}>
-      {letters.map((char, index) => (
+      {letters.map((_, index) => (
         <div 
           key={`${id}-${index}`} 
           style={{

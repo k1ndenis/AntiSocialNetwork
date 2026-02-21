@@ -5,7 +5,7 @@ import { CurrentQuestion } from "./CurrentQuestion";
 import './Scanword.css'
 
 export const Scanword = () => {
-  const [questions, setQuestions] = useState(dataQuestions);
+  const [questions] = useState(dataQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [activedCell, setActivedCell] = useState(0);
   const [currentCells, setCurrentCells] = useState(questions[0].coordinates);
