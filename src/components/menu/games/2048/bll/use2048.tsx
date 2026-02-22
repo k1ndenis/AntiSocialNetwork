@@ -9,6 +9,7 @@ const emptyGrid = [
 
 export const use2048 = () => {
   const [grid, setGrid] = useState(emptyGrid);
+  const [gameIsOn, setGameIsOn] = useState(false);
 
     const mergeTiles = (tiles) => {
       tiles.forEach((el, i) => {
@@ -44,6 +45,7 @@ export const use2048 = () => {
 
     useEffect(() => {
     const handleKeyDown = (e) => {
+      if (!gameIsOn) return;
       if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
         e.preventDefault();
       }
@@ -130,7 +132,7 @@ export const use2048 = () => {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, []);
+  }, [gameIsOn]);
 
   return {
     grid,
@@ -139,6 +141,7 @@ export const use2048 = () => {
       spawnNewValue(newGrid);
       spawnNewValue(newGrid);
       setGrid(newGrid);
+      setGameIsOn(true);
     }
   }
 }
