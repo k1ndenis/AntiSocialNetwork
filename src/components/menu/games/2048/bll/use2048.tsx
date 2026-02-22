@@ -22,7 +22,6 @@ export const use2048 = () => {
 
     const spawnNewValue = (newGrid) => {
       const emptyTiles = [];
-      
       for (let c = 0; c < 4; c++) {
         for (let r = 0; r < 4; r++) {
           if (newGrid[c][r] === 0) {
@@ -39,7 +38,9 @@ export const use2048 = () => {
       }
 
       const coords = getRandomIndex();
-      newGrid[emptyTiles[coords].colInd][emptyTiles[coords].rowInd] = 2;
+
+      const newValue = Math.random() < 0.1 ? 4 : 2;
+      newGrid[emptyTiles[coords].colInd][emptyTiles[coords].rowInd] = newValue;
       return newGrid;
     }
 
