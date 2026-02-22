@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 const emptyGrid = [
       [0, 0, 0, 0],
@@ -11,47 +11,73 @@ export const use2048 = () => {
   const [grid, setGrid] = useState(emptyGrid);
   const [gameIsOn, setGameIsOn] = useState(false);
 
-    const mergeTiles = (tiles) => {
-      tiles.forEach((el, i) => {
-        if (i > 0 && el === tiles[i - 1]) {
-          tiles[i - 1] = tiles[i - 1] + el;
-          tiles[i] = 0;
-        }
-      })
-      return tiles.filter(tile => tile !== 0)
-    }
+  const touchStart = useRef({ x: 0, y: 0});
 
-    const spawnNewValue = (newGrid) => {
-      const emptyTiles = [];
-      for (let c = 0; c < 4; c++) {
-        for (let r = 0; r < 4; r++) {
-          if (newGrid[c][r] === 0) {
-            emptyTiles.push({ colInd: c, rowInd: r });
-          }
+  const mergeTiles = (tiles) => {
+    tiles.forEach((el, i) => {
+      if (i > 0 && el === tiles[i - 1]) {
+        tiles[i - 1] = tiles[i - 1] + el;
+        tiles[i] = 0;
+      }
+    })
+    return tiles.filter(tile => tile !== 0)
+  }
+
+  const spawnNewValue = (newGrid) => {
+    const emptyTiles = [];
+    for (let c = 0; c < 4; c++) {
+      for (let r = 0; r < 4; r++) {
+        if (newGrid[c][r] === 0) {
+          emptyTiles.push({ colInd: c, rowInd: r });
         }
       }
-
-      if (emptyTiles.length === 0) return newGrid;
-
-      const getRandomIndex = () => {
-        const randomCoords = Math.floor(Math.random() * emptyTiles.length);
-        return randomCoords;
-      }
-      const coords = getRandomIndex();
-      const newValue = Math.random() < 0.1 ? 4 : 2;
-      newGrid[emptyTiles[coords].colInd][emptyTiles[coords].rowInd] = newValue;
-      return newGrid;
     }
 
-    useEffect(() => {
+    if (emptyTiles.length === 0) return newGrid;
+
+    const getRandomIndex = () => {
+      const randomCoords = Math.floor(Math.random() * emptyTiles.length);
+      return randomCoords;
+    }
+    const coords = getRandomIndex();
+    const newValue = Math.random() < 0.1 ? 4 : 2;
+    newGrid[emptyTiles[coords].colInd][emptyTiles[coords].rowInd] = newValue;
+    return newGrid;
+  }
+
+  useEffect(() => {
+    const handleTouchStart = (e) => {
+      touchStart.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
+      }
+    }
+
+    const handleTouchEnd = (e) => {
+      const deltaX = e.changedTouches[0].clientX - touchStart.current.x;
+      const deltaY = e.changedTouches[0].clientY - touchStart.current.y;
+      const absX = Math.abs(deltaX);
+      const absY = Math.abs(deltaY);
+
+      if (Math.max(absX, absY) > 30) {
+        let key = '';
+        if (absX > absY) {
+          key = deltaX > 0 ? 'ArrowRight' : 'ArrowLeft';
+        } else {
+          key = deltaY > 0 ? 'ArrowDown' : 'ArrowUp';
+        }
+        handleKeyDown({ key, preventDefault: () => {} });
+      }
+    }
+
     const handleKeyDown = (e) => {
       if (!gameIsOn) return;
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'touchstart', 'touchend'].includes(e.key)) {
         e.preventDefault();
       }
 
       setGrid(prevGrid => {
-        let newGrid = JSON.parse(JSON.stringify(prevGrid));
+        let newGrid = prevGrid.map(row => [...row]);
         switch (e.key) {
           case 'ArrowUp': {
             let isMoved = false;
@@ -138,8 +164,14 @@ export const use2048 = () => {
       })
     }
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    }
   }, [gameIsOn]);
 
   return {
