@@ -11,6 +11,7 @@
 .current-track {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 108px;
   background: #9c9c9c;
   border-radius: 12px;
@@ -25,7 +26,7 @@
 }
 
 .current-track audio {
-  border-radius: 2rem;
+  border-radius: 12px;
 }
 
 .scroll-wrapper-container {
@@ -48,4 +49,15 @@
 @keyframes scrolling {
   0% { transform: translateX(-50%); }
   100% { transform: translateX(0); }
+}
+
+@media (max-width: 720px) {
+  .current-track {
+    font-size: 14px;
+    height: 80px;
+  }
+
+  .scroll-wrapper-container {
+    height: fit-content;
+  }
 }

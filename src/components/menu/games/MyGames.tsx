@@ -22,7 +22,10 @@ export const MyGames = () => {
         {activeGame === "scanword" && <Scanword />}
         {activeGame === "2048" && <The2048 />}
         {activeGame && (
-          <button onClick={() => setActiveGame(null)}>
+          <button 
+            onClick={() => setActiveGame(null)}
+            className="exit-button"
+          >
             Выйти из игры
           </button>
         )}

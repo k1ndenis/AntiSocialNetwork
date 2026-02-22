@@ -1,4 +1,4 @@
-export const AudioUploader = (props) => {
+export const PictureUploader = (props) => {
 
   const handleFileChange = (e) => {
     const currentFile = e.target.files[0];

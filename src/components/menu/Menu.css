@@ -12,3 +12,9 @@
   margin: 0 auto;
   padding-bottom: 0.5rem;
 }
+
+@media (max-width: 1080px) {
+  .menu {
+    width: 90vw;
+  }
+}

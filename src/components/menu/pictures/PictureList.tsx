@@ -1,13 +1,13 @@
 import "./PictureList.css"
-import { AudioUploader } from "./PictureUploader"
+import { PictureUploader } from "./PictureUploader"
 
 export const PictureList = (props) => {
 
   const pictureList = (
       <ul>
         <li>
-          <div className="card">
-            <AudioUploader
+          <div className="add-button-container">
+            <PictureUploader
               onAddPicture={props.onAddPicture}
             />
           </div>

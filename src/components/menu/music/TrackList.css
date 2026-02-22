@@ -49,3 +49,18 @@
 .tracklist-buttons:hover {
   transform: scale(0.98);
 }
+
+@media (max-width: 720px) {
+  .tracklist li {
+    font-size: 10px;
+    height: 40px;
+  }
+
+  .tracklist button {
+    font-size: 10px;
+  }
+
+  .track-row {
+    gap: 5px;
+  }
+}

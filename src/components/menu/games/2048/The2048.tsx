@@ -7,7 +7,7 @@ export const The2048 = () => {
   const { grid, startGame } = use2048()
 
   return (
-    <>
+    <div className='game-2048-container'>
       <StartGameBtn
         startGame={startGame}
       />
@@ -25,6 +25,6 @@ export const The2048 = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }

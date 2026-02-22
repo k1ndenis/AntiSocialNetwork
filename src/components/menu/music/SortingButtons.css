@@ -5,6 +5,8 @@
   gap: 25px;
 }
 
-.music-sorting-buttons button {
-  width: 40%;
+@media (min-width: 720px) {
+  .music-sorting-buttons button {
+    width: 40%;
+  }
 }
