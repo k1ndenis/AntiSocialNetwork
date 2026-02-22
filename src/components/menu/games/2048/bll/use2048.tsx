@@ -36,9 +36,7 @@ export const use2048 = () => {
         const randomCoords = Math.floor(Math.random() * emptyTiles.length);
         return randomCoords;
       }
-
       const coords = getRandomIndex();
-
       const newValue = Math.random() < 0.1 ? 4 : 2;
       newGrid[emptyTiles[coords].colInd][emptyTiles[coords].rowInd] = newValue;
       return newGrid;
@@ -136,6 +134,11 @@ export const use2048 = () => {
 
   return {
     grid,
-    startGame: () => setGrid(spawnNewValue(JSON.parse(JSON.stringify(emptyGrid))))
+    startGame: () => {
+      const newGrid = JSON.parse(JSON.stringify(emptyGrid));
+      spawnNewValue(newGrid);
+      spawnNewValue(newGrid);
+      setGrid(newGrid);
+    }
   }
 }
