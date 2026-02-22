@@ -18,7 +18,7 @@ export const use2048 = () => {
           tiles[i] = 0;
         }
       })
-      return tiles.filter(tile => tile !== 0);
+      return tiles.filter(tile => tile !== 0)
     }
 
     const spawnNewValue = (newGrid) => {
@@ -54,6 +54,7 @@ export const use2048 = () => {
         let newGrid = JSON.parse(JSON.stringify(prevGrid));
         switch (e.key) {
           case 'ArrowUp': {
+            let isMoved = false;
             for (let col = 0; col < 4; col++) {
               let column = [];
               for (let row = 0; row < 4; row++) {
@@ -65,13 +66,15 @@ export const use2048 = () => {
               while (column.length < 4) column.push(0);
 
               for (let row = 0; row < 4; row++) {
+                if (newGrid[row][col] !== column[row]) isMoved = true;
                 newGrid[row][col] = column[row];
               };
             }
-            newGrid = spawnNewValue(newGrid);
+            if (isMoved) newGrid = spawnNewValue(newGrid);
             break;
           };
           case 'ArrowDown': {
+            let isMoved = false;
             for (let col = 0; col < 4; col++) {
               let column = [];
               for (let row = 3; row >= 0; row--) {
@@ -83,13 +86,15 @@ export const use2048 = () => {
               while (column.length < 4) column.push(0);
 
               for (let row = 3, k = 0; row >= 0; row--, k++) {
+                if (newGrid[row][col] !== column[k]) isMoved = true;
                 newGrid[row][col] = column[k];
               };
             }
-            newGrid = spawnNewValue(newGrid);
+            if (isMoved) newGrid = spawnNewValue(newGrid);
             break;
           };
           case 'ArrowLeft': {
+            let isMoved = false;
             for (let row = 0; row < 4; row ++) {
               let currentRow = [];
               for (let col = 0; col < 4; col++) {
@@ -101,13 +106,15 @@ export const use2048 = () => {
               while (currentRow.length < 4) currentRow.push(0);
 
               for (let col = 0; col < 4; col++) {
+                if (newGrid[row][col] !== currentRow[col]) isMoved = true;
                 newGrid[row][col] = currentRow[col];
               };
             }
-            newGrid = spawnNewValue(newGrid);
+            if (isMoved) newGrid = spawnNewValue(newGrid);
             break;
           };
           case 'ArrowRight': {
+            let isMoved = false;
             for (let row = 0; row < 4; row ++) {
               let currentRow = [];
               for (let col = 3; col >= 0; col--) {
@@ -119,10 +126,11 @@ export const use2048 = () => {
               while (currentRow.length < 4) currentRow.push(0);
 
               for (let col = 3, k = 0; col >= 0; col--, k++) {
+                if (newGrid[row][col] !== currentRow[k]) isMoved = true;
                 newGrid[row][col] = currentRow[k];
               };
             }
-            newGrid = spawnNewValue(newGrid);
+            if (isMoved) newGrid = spawnNewValue(newGrid);
             break;
           };
         }

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Scanword } from "./scanword/Scanword"
 import { The2048 } from "./2048/The2048";
+import './MyGames.css'
 
 export const MyGames = () => {
   const [activeGame, setActiveGame] = useState(null);
@@ -17,7 +18,7 @@ export const MyGames = () => {
       >
         2048
       </button>
-      <div>
+      <div className="game-container">
         {activeGame === "scanword" && <Scanword />}
         {activeGame === "2048" && <The2048 />}
         {activeGame && (
