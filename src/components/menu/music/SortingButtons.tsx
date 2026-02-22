@@ -1,4 +1,4 @@
-import { SORT_MODES } from "../../../hooks/useTrackProcessor";
+import { SORT_MODES } from "./bll/useTrackProcessor";
 import "./SortingButtons.css"
 
 const { 
