@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   gap: 2px;
-  padding: 12px;
+  padding: 32px;
+  background: #bbada0;
 }
 
 .grid-row {
